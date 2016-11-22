@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+'use strict';
+
+var _path = require('path');
+
+var _minimist = require('minimist');
+
+var _minimist2 = _interopRequireDefault(_minimist);
+
+var _build = require('../server/build');
+
+var _build2 = _interopRequireDefault(_build);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var argv = (0, _minimist2.default)(process.argv.slice(2), {
+  alias: {
+    h: 'help'
+  },
+  boolean: ['h']
+});
+
+var dir = (0, _path.resolve)(argv._[0] || '.');
+
+(0, _build2.default)(dir).catch(function (err) {
+  console.error(err);
+  process.exit(1);
+});
