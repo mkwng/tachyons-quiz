@@ -918,6 +918,22 @@ var Question = React.createClass({
   }
 });
 
+var Result = React.createClass({
+  getInitialState: function() {
+    return {}
+  },
+  render: function() {
+    let response = this.props.isCorrect ? "Correct!" : "Oops, not quite";
+    return (
+      <div className="result">
+        <div className="result-response">{response}</div>
+        <div className="result-answer">{this.props.answer}</div>
+        <div className="result-url"><a href={this.props.url}>Documentation</a></div>
+      </div>
+    );
+  }
+});
+
 var AnswerForm = React.createClass({
   getInitialState: function() {
     return {
@@ -951,8 +967,8 @@ var Application = React.createClass({
     initialData.questions = _.orderBy(_.shuffle(initialData.questions), ['seen', 'proficiency'], ['asc', 'asc']);
     return {
       data: initialData,
-      // questionIndex: 0,
-      currentQuestionID: initialData.questions[0].id
+      currentQuestionID: initialData.questions[0].id,
+      previousQuestionID: null
     };
   },
 
@@ -1005,6 +1021,9 @@ var Application = React.createClass({
   },
 
   nextQuestionID: function() {
+    // Store the previous ID
+    this.state.previousQuestionID = this.state.currentQuestionID;
+
     // Get the first one in the list that hasn't been seen.
     var nextQuestion = this.state.currentQuestionID ?
       _.findIndex(this.state.data.questions, { id: this.state.currentQuestionID })
@@ -1023,14 +1042,19 @@ var Application = React.createClass({
 
   render: function() {
     var target =  _.find(DATA.questions, {id: this.state.currentQuestionID});
+    var previous = _.find(DATA.questions, {id: this.state.previousQuestionID}) || {answer:""};
     return (
       <div>
         <Question question={ target.question } />
         <AnswerForm
           answer={ target.answer }
-          onAnswer={function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
+          onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
         />
-        <a onClick={function() {this.addQuestion()}.bind(this) }>Add another question</a>
+        <Result
+          answer={"test"}
+          isCorrect={true}
+          url={"test.com"}
+        />
       </div>
     );
   }
