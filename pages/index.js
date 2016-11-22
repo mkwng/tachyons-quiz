@@ -968,7 +968,8 @@ var Application = React.createClass({
     return {
       data: initialData,
       currentQuestionID: initialData.questions[0].id,
-      previousQuestionID: null
+      previousQuestionID: null,
+      wasCorrect: false,
     };
   },
 
@@ -980,9 +981,11 @@ var Application = React.createClass({
       console.log("Correct");
       question.proficiency += 1;
       question.correct += 1;
+      this.state.wasCorrect = true;
     } else {
       console.log("Wrong");
       question.proficiency = Math.max(question.proficiency - 1, 0);
+      this.state.wasCorrect = false;
     }
 
     // Change question
@@ -1042,7 +1045,7 @@ var Application = React.createClass({
 
   render: function() {
     var target =  _.find(DATA.questions, {id: this.state.currentQuestionID});
-    var previous = _.find(DATA.questions, {id: this.state.previousQuestionID}) || {answer:""};
+    var previous = _.find(DATA.questions, {id: this.state.previousQuestionID}) || {answer:"", url:""};
     return (
       <div>
         <Question question={ target.question } />
@@ -1051,9 +1054,9 @@ var Application = React.createClass({
           onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
         />
         <Result
-          answer={"test"}
-          isCorrect={true}
-          url={"test.com"}
+          answer={ previous.answer }
+          isCorrect={ this.state.wasCorrect }
+          url={ previous.url }
         />
       </div>
     );
