@@ -1,4 +1,6 @@
 import React from 'react'
+import Head from 'next/head'
+
 var _ = require('lodash');
 var DATA = {
   "questions": [
@@ -925,10 +927,24 @@ var Result = React.createClass({
   render: function() {
     let response = this.props.isCorrect ? "Correct!" : "Oops, not quite";
     return (
-      <div className="result">
+      <div className="result fixed bottom-0">
         <div className="result-response">{response}</div>
-        <div className="result-answer">{this.props.answer}</div>
-        <div className="result-url"><a href={this.props.url}>Documentation</a></div>
+        <div className="result-answer">{this.props.previous.answer}</div>
+        <div className="result-url"><a href={this.props.previous.url}>Documentation</a></div>
+      </div>
+    );
+  }
+});
+
+var Quiz = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <Question question={ this.props.target.question } />
+        <AnswerForm
+          answer={ this.props.target.answer }
+          onAnswer={ function(isCorrect) {this.props.onAnswer(isCorrect)}.bind(this) }
+        />
       </div>
     );
   }
@@ -1048,16 +1064,25 @@ var Application = React.createClass({
     var previous = _.find(DATA.questions, {id: this.state.previousQuestionID}) || {answer:"", url:""};
     return (
       <div>
-        <Question question={ target.question } />
-        <AnswerForm
-          answer={ target.answer }
-          onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
-        />
-        <Result
-          answer={ previous.answer }
-          isCorrect={ this.state.wasCorrect }
-          url={ previous.url }
-        />
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css" />
+        </Head>
+        <div className="vh-100 tc">
+          <h1 className="f1">Tachyons Quiz</h1>
+          <p className="f5">Learn Tachyons by memorizing the class names</p>
+
+          <Quiz
+            target={ target }
+            onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
+          />
+
+          <Result
+            previous={ previous }
+            isCorrect={ this.state.wasCorrect }
+          />
+          <p><a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
+        </div>
       </div>
     );
   }

@@ -4,6 +4,6 @@
     "next": "^1.1.2"
   },
   "scripts": {
-    "dev": "next"
+    "start": "next"
   }
 }
