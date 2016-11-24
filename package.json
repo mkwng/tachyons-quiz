@@ -1,6 +1,14 @@
 {
   "name": "tachyons-quiz",
+  "version": "1.0.0",
+  "author": "mkwng",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mkwng/tachyons-quiz.git"
+  },
+  "homepage": "http://tachyons.pro",
   "dependencies": {
+    "jquery": "^3.1.1",
     "next": "^1.1.2"
   },
   "scripts": {
