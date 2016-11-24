@@ -971,9 +971,14 @@ var StyleQuestionBlock = React.createClass({
         </code>
       ) : (
           <code className={ isCorrect ? "correct db w-100" : "wrong db w-100" }>
-            <span className={ isCorrect ? "green" : "bg-red white" }>.{ this.props.answer }</span>
-            { " {" }
-            <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>{ " // Correct answer: " + this.props.tachyonsStyle.answer }</span>
+            <span className={ isCorrect ? "green" : "bg-red white" }>
+              .{ this.props.answer }
+              { isCorrect ? (<i className="material-icons">check_circle</i>) : ""}
+            </span>
+            { " { " }
+            <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>
+              { " // Correct answer: " + this.props.tachyonsStyle.answer }
+            </span>
           </code>
         );
     var property = (<code className="db w-100 pl3">{ this.props.tachyonsStyle.question }</code>);
@@ -1099,7 +1104,7 @@ var Application = React.createClass({
   },
 
   didAddLog: function() {
-    jQuery(this.scrollWindow).animate({ scrollTop: jQuery(this.innerWindow).innerHeight() }).bind(this);
+    jQuery(this.scrollWindow).animate({ scrollTop: jQuery(this.innerWindow).innerHeight() });
   },
 
   render: function() {
@@ -1110,7 +1115,7 @@ var Application = React.createClass({
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css" />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Material+Icons" />
         </Head>
         <div className="vh-100 pa4 mw7 center">
           <h1 className="f5 mv4">Tachyons Quiz</h1>
@@ -1128,7 +1133,7 @@ var Application = React.createClass({
               ref={ (div) => { this.scrollWindow = div; } }
             >
             <div 
-              className="w-100"
+              className="w-100 pl4"
               ref={ (div) => { this.innerWindow = div; } }
             >
               <StyleQuestionLog
