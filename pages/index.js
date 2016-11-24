@@ -1,5 +1,6 @@
-import React from 'react'
-import Head from 'next/head'
+import React from 'react';
+import Head from 'next/head';
+import jQuery from 'jquery'
 
 var _ = require('lodash');
 var DATA = {
@@ -946,11 +947,12 @@ var StyleQuestionBlock = React.createClass({
   },
 
   render: function() {
+    var isCorrect = this.props.answer === this.props.tachyonsStyle.answer;
     var comment = (
       <code className="db w-100 white-30 i">
         { "// " }
         { this.props.tachyonsStyle.categories[0] + ": " + this.props.tachyonsStyle.categories[1] + ". " }
-        <a className="white-30" href={this.props.tachyonsStyle.url}>Docs</a>.
+        <a className="white-30" href={this.props.tachyonsStyle.url}>See documentation</a>.
       </code>
     );
     var selector = this.props.isEditable
@@ -968,10 +970,10 @@ var StyleQuestionBlock = React.createClass({
           { " {" }
         </code>
       ) : (
-          <code className={ this.props.answer === this.props.tachyonsStyle.answer ? "correct db w-100" : "wrong db w-100" }>
-            <span className="green">.{ this.props.answer }</span>
+          <code className={ isCorrect ? "correct db w-100" : "wrong db w-100" }>
+            <span className={ isCorrect ? "green" : "bg-red white" }>.{ this.props.answer }</span>
             { " {" }
-            <span className={ this.props.answer === this.props.tachyonsStyle.answer ? "dn white-30 i" : "di white-30 i" }>{ " // Correct answer: " + this.props.tachyonsStyle.answer }</span>
+            <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>{ " // Correct answer: " + this.props.tachyonsStyle.answer }</span>
           </code>
         );
     var property = (<code className="db w-100 pl3">{ this.props.tachyonsStyle.question }</code>);
@@ -988,6 +990,12 @@ var StyleQuestionBlock = React.createClass({
 });
 
 var StyleQuestionLog = React.createClass({
+  componentDidUpdate: function(prevProps, prevState) {
+    setTimeout(function() {
+      this.props.didAdd();
+    }.bind(this),50);
+  },
+
   render: function() {
     return (
       <div>
@@ -1004,9 +1012,7 @@ var StyleQuestionLog = React.createClass({
   }
 });
 
-
 var Application = React.createClass({
-
   getInitialState: function() {
     var initialData = this.props.myData;
     initialData.questions = _.orderBy(_.shuffle(initialData.questions), ['seen', 'proficiency'], ['asc', 'asc']);
@@ -1092,6 +1098,10 @@ var Application = React.createClass({
     }
   },
 
+  didAddLog: function() {
+    jQuery(this.scrollWindow).animate({ scrollTop: jQuery(this.innerWindow).innerHeight() }).bind(this);
+  },
+
   render: function() {
     var target =  _.find(DATA.questions, {id: this.state.currentQuestionID});
     var previous = _.find(DATA.questions, {id: this.state.previousQuestionID}) || {answer:"", url:""};
@@ -1106,15 +1116,36 @@ var Application = React.createClass({
           <h1 className="f5 mv4">Tachyons Quiz</h1>
           <p className="f5 mt4 mb5">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
 
-          <div className="w-100 pa3 vh-50 bg-black-80 white-80">
-            <StyleQuestionLog
-              questionLog={ this.props.myData.log }
-            />
-            <StyleQuestionBlock
-              tachyonsStyle={ target }
-              isEditable={ true }
-              onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
-            />
+          <div className="w-100 vh-50 bg-black-80 white-80 overflow-hidden br3 relative">
+            <div className="absolute top-0 left-0 w-100 h2 bg-white-50">
+              <span className="w1 h1 br-100 bg-white-50 dib mv2 mr1 ml2"></span>
+              <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
+              <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
+            </div>
+
+            <div 
+              className="w-100 h-100 overflow-hidden pv4"
+              ref={ (div) => { this.scrollWindow = div; } }
+            >
+            <div 
+              className="w-100"
+              ref={ (div) => { this.innerWindow = div; } }
+            >
+              <StyleQuestionLog
+                questionLog={ this.props.myData.log }
+                didAdd={ this.didAddLog }
+              />
+              <StyleQuestionBlock
+                tachyonsStyle={ target }
+                isEditable={ true }
+                onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
+              />
+              <br /> 
+            </div>
+            </div>
+
+            <div className="absolute bottom-0 left-0 w-100 h2 bg-black-90"></div>
+
           </div>
 
         </div>
