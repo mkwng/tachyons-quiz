@@ -15,4 +15,5 @@ pids
 # next output
 .next
 
+# Node modules
 node_modules
