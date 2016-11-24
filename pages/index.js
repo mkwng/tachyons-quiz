@@ -900,7 +900,6 @@ var DATA = {
 };
 
 
-
 var MYDATA = {
   score: 0,
   log: [],
@@ -972,8 +971,8 @@ var StyleQuestionBlock = React.createClass({
       ) : (
           <code className={ isCorrect ? "correct db w-100" : "wrong db w-100" }>
             <span className={ isCorrect ? "green" : "bg-red white" }>
-              .{ this.props.answer }
-              { isCorrect ? (<i className="material-icons">check_circle</i>) : ""}
+              .{ this.props.answer } 
+              <i className="material-icons f5">{ isCorrect ? "check_circle" : "error"}</i>
             </span>
             { " { " }
             <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>
@@ -1133,7 +1132,7 @@ var Application = React.createClass({
               ref={ (div) => { this.scrollWindow = div; } }
             >
             <div 
-              className="w-100 pl4"
+              className="w-100 pl4 f5"
               ref={ (div) => { this.innerWindow = div; } }
             >
               <StyleQuestionLog
