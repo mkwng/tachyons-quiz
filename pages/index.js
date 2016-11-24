@@ -902,79 +902,105 @@ var DATA = {
 
 var MYDATA = {
   score: 0,
+  log: [],
   questions: [
     {
-      id: 1,
+      id: 16,
+      proficiency: 1,
+      correct: 1,
+      seen: 1
+    },
+    {
+      id: 7,
       proficiency: 0,
-      correct: 0,
-      seen: 0,
+      correct: 1,
+      seen: 1
     }
   ]
 }
 
-var Question = React.createClass({
-  render: function() {
-    return (
-      <pre>{this.props.question}</pre>
-    );
-  }
-});
 
-var Result = React.createClass({
-  getInitialState: function() {
-    return {}
-  },
-  render: function() {
-    let response = this.props.isCorrect ? "Correct!" : "Oops, not quite";
-    return (
-      <div className="result fixed bottom-0">
-        <div className="result-response">{response}</div>
-        <div className="result-answer">{this.props.previous.answer}</div>
-        <div className="result-url"><a href={this.props.previous.url}>Documentation</a></div>
-      </div>
-    );
-  }
-});
-
-var Quiz = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <Question question={ this.props.target.question } />
-        <AnswerForm
-          answer={ this.props.target.answer }
-          onAnswer={ function(isCorrect) {this.props.onAnswer(isCorrect)}.bind(this) }
-        />
-      </div>
-    );
-  }
-});
-
-var AnswerForm = React.createClass({
+var StyleQuestionBlock = React.createClass({
   getInitialState: function() {
     return {
-      answer: "",
+      "answer": this.props.answer || ""
     };
   },
-  onAnswerChange: function(e) {
-    this.setState({answer: e.target.value});
+
+  componentDidMount: function() {
+    if (this.textInput) this.textInput.focus();
   },
+
+  onAnswerChange: function(e) {
+    this.setState({ answer: e.target.value });
+    e.target.style.width = Math.max(e.target.value.length,1) + "ch";
+  },
+
   onSubmit: function(e) {
     e.preventDefault();
     this.setState({answer: ""});
-    return this.props.onAnswer(this.state.answer === this.props.answer);
+    this.textInput.style.width = "1ch";
+    return this.props.onAnswer(this.state.answer);
   },
+
   render: function() {
+    var comment = (
+      <code className="db w-100">
+        { "// " }
+        { this.props.tachyonsStyle.categories[0] + ": " + this.props.tachyonsStyle.categories[1] + ". " }
+        <a href={this.props.tachyonsStyle.url}>Docs</a>.
+      </code>
+    );
+    var selector = this.props.isEditable
+      ? (
+        <code className="db w-100">
+          .<form onSubmit={this.onSubmit} className="dib">
+            <input
+              className="w1 outline-0 b--none pa0"
+              type="text"
+              value={this.state.answer}
+              onChange={this.onAnswerChange}
+              ref={(input) => { this.textInput = input; }}
+              />
+          </form>
+          { " {" }
+        </code>
+      ) : (
+          <code className={ this.props.answer === this.props.tachyonsStyle.answer ? "correct db w-100" : "wrong db w-100" }>
+            .<span>{ this.props.answer }</span>
+            { " {" }
+            <span className={ this.props.answer === this.props.tachyonsStyle.answer ? "dn" : "di" }>{ " // Correct answer: " + this.props.tachyonsStyle.answer }</span>
+          </code>
+        );
+    var property = (<code className="db w-100 pl3">{ this.props.tachyonsStyle.question }</code>);
     return (
-      <div className="answer-form">
-        <form onSubmit={this.onSubmit}>
-          class="<input type="text" value={this.state.answer} onChange={this.onAnswerChange} />"
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    )
+      <pre className="w-100 tl mv0">
+        <code className="db w-100">{ " " }</code>
+        { comment }
+        { selector }
+        { property }
+        <code className="db w-100">{ "}" }</code>
+      </pre>
+    );
   }
 });
+
+var StyleQuestionLog = React.createClass({
+  render: function() {
+    return (
+      <div>
+        { this.props.questionLog.map( (logEntry) => (
+            <StyleQuestionBlock
+              tachyonsStyle={ logEntry.tachyonsStyle }
+              answer={ logEntry.answer }
+              isEditable={ false }
+            />
+        ) ) }
+      </div>
+    );
+  }
+});
+
 
 var Application = React.createClass({
 
@@ -985,26 +1011,28 @@ var Application = React.createClass({
       data: initialData,
       currentQuestionID: initialData.questions[0].id,
       previousQuestionID: null,
-      wasCorrect: false,
     };
   },
 
-  onAnswer: function(isCorrect) {
-    var question = _.find(this.state.data.questions, { "id": this.state.currentQuestionID });
+  onAnswer: function(userAnswer) {
+    var question = _.find(this.state.data.questions, { id: this.state.currentQuestionID });
+    var tachyonsStyle = _.find(DATA.questions, { id: this.state.currentQuestionID });
     question.seen += 1;
 
-    if (isCorrect) {
+    if (userAnswer === tachyonsStyle.answer) {
       console.log("Correct");
       question.proficiency += 1;
       question.correct += 1;
-      this.state.wasCorrect = true;
     } else {
       console.log("Wrong");
       question.proficiency = Math.max(question.proficiency - 1, 0);
-      this.state.wasCorrect = false;
     }
 
     // Change question
+    this.state.data.log.push({
+      tachyonsStyle: tachyonsStyle,
+      answer: userAnswer
+    });
     this.state.currentQuestionID = this.nextQuestionID();
     this.setState(this.state);
   },
@@ -1070,18 +1098,18 @@ var Application = React.createClass({
         </Head>
         <div className="vh-100 tc">
           <h1 className="f1">Tachyons Quiz</h1>
-          <p className="f5">Learn Tachyons by memorizing the class names</p>
+          <p className="f5">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
 
-          <Quiz
-            target={ target }
+          <StyleQuestionLog
+            questionLog={ this.props.myData.log }
+          />
+
+          <StyleQuestionBlock
+            tachyonsStyle={ target }
+            isEditable={ true }
             onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
           />
 
-          <Result
-            previous={ previous }
-            isCorrect={ this.state.wasCorrect }
-          />
-          <p><a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
         </div>
       </div>
     );
