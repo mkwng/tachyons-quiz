@@ -928,7 +928,9 @@ var StyleQuestionBlock = React.createClass({
   },
 
   componentDidMount: function() {
-    if (this.textInput) this.textInput.focus();
+    setTimeout(function() {
+      if (this.textInput) this.textInput.focus();
+    }.bind(this),50);
   },
 
   onAnswerChange: function(e) {
@@ -945,18 +947,18 @@ var StyleQuestionBlock = React.createClass({
 
   render: function() {
     var comment = (
-      <code className="db w-100">
+      <code className="db w-100 white-30 i">
         { "// " }
         { this.props.tachyonsStyle.categories[0] + ": " + this.props.tachyonsStyle.categories[1] + ". " }
-        <a href={this.props.tachyonsStyle.url}>Docs</a>.
+        <a className="white-30" href={this.props.tachyonsStyle.url}>Docs</a>.
       </code>
     );
     var selector = this.props.isEditable
       ? (
         <code className="db w-100">
-          .<form onSubmit={this.onSubmit} className="dib">
-            <input
-              className="w1 outline-0 b--none pa0"
+          <form onSubmit={this.onSubmit} className="dib green">
+            .<input
+              className="w1 outline-0 b--none pa0 bg-transparent green"
               type="text"
               value={this.state.answer}
               onChange={this.onAnswerChange}
@@ -967,9 +969,9 @@ var StyleQuestionBlock = React.createClass({
         </code>
       ) : (
           <code className={ this.props.answer === this.props.tachyonsStyle.answer ? "correct db w-100" : "wrong db w-100" }>
-            .<span>{ this.props.answer }</span>
+            <span className="green">.{ this.props.answer }</span>
             { " {" }
-            <span className={ this.props.answer === this.props.tachyonsStyle.answer ? "dn" : "di" }>{ " // Correct answer: " + this.props.tachyonsStyle.answer }</span>
+            <span className={ this.props.answer === this.props.tachyonsStyle.answer ? "dn white-30 i" : "di white-30 i" }>{ " // Correct answer: " + this.props.tachyonsStyle.answer }</span>
           </code>
         );
     var property = (<code className="db w-100 pl3">{ this.props.tachyonsStyle.question }</code>);
@@ -989,11 +991,12 @@ var StyleQuestionLog = React.createClass({
   render: function() {
     return (
       <div>
-        { this.props.questionLog.map( (logEntry) => (
+        { this.props.questionLog.map( (logEntry, i) => (
             <StyleQuestionBlock
               tachyonsStyle={ logEntry.tachyonsStyle }
               answer={ logEntry.answer }
               isEditable={ false }
+              key={ i }
             />
         ) ) }
       </div>
@@ -1023,6 +1026,7 @@ var Application = React.createClass({
       console.log("Correct");
       question.proficiency += 1;
       question.correct += 1;
+      this.state.score += 1;
     } else {
       console.log("Wrong");
       question.proficiency = Math.max(question.proficiency - 1, 0);
@@ -1030,6 +1034,7 @@ var Application = React.createClass({
 
     // Change question
     this.state.data.log.push({
+      id: this.state.data.log.length,
       tachyonsStyle: tachyonsStyle,
       answer: userAnswer
     });
@@ -1095,20 +1100,22 @@ var Application = React.createClass({
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro" />
         </Head>
-        <div className="vh-100 tc">
-          <h1 className="f1">Tachyons Quiz</h1>
-          <p className="f5">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
+        <div className="vh-100 pa4 mw7 center">
+          <h1 className="f5 mv4">Tachyons Quiz</h1>
+          <p className="f5 mt4 mb5">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
 
-          <StyleQuestionLog
-            questionLog={ this.props.myData.log }
-          />
-
-          <StyleQuestionBlock
-            tachyonsStyle={ target }
-            isEditable={ true }
-            onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
-          />
+          <div className="w-100 pa3 vh-50 bg-black-80 white-80">
+            <StyleQuestionLog
+              questionLog={ this.props.myData.log }
+            />
+            <StyleQuestionBlock
+              tachyonsStyle={ target }
+              isEditable={ true }
+              onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
+            />
+          </div>
 
         </div>
       </div>
