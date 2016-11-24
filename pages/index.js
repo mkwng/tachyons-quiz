@@ -972,7 +972,7 @@ var StyleQuestionBlock = React.createClass({
           <code className={ isCorrect ? "correct db w-100" : "wrong db w-100" }>
             <span className={ isCorrect ? "green" : "bg-red white" }>
               .{ this.props.answer } 
-              <i className="material-icons f5">{ isCorrect ? "check_circle" : "error"}</i>
+              <i className="material-icons ph2 v-btm">{ isCorrect ? "check_circle" : "error"}</i>
             </span>
             { " { " }
             <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>
@@ -1112,13 +1112,17 @@ var Application = React.createClass({
     return (
       <div>
         <Head>
+          <title>Tachyons Pro</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Material+Icons" />
+          <style>{
+            ".material-icons {font-size:inherit;}"
+          }</style>
         </Head>
         <div className="vh-100 pa4 mw7 center">
-          <h1 className="f5 mv4">Tachyons Quiz</h1>
-          <p className="f5 mt4 mb5">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
+          <h1 className="f5 mv4 sans-serif">Are you a Tachyons Pro?</h1>
+          <p className="f5 mt4 mb5 sans-serif">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
 
           <div className="w-100 vh-50 bg-black-80 white-80 overflow-hidden br3 relative">
             <div className="absolute top-0 left-0 w-100 h2 bg-white-50">
@@ -1132,7 +1136,7 @@ var Application = React.createClass({
               ref={ (div) => { this.scrollWindow = div; } }
             >
             <div 
-              className="w-100 pl4 f5"
+              className="w-100 pl4 f5 code"
               ref={ (div) => { this.innerWindow = div; } }
             >
               <StyleQuestionLog
