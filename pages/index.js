@@ -900,26 +900,6 @@ var DATA = {
 };
 
 
-var MYDATA = {
-  score: 0,
-  log: [],
-  questions: [
-    {
-      id: 16,
-      proficiency: 1,
-      correct: 1,
-      seen: 1
-    },
-    {
-      id: 7,
-      proficiency: 0,
-      correct: 1,
-      seen: 1
-    }
-  ]
-}
-
-
 var StyleQuestionBlock = React.createClass({
   getInitialState: function() {
     return {
@@ -972,7 +952,7 @@ var StyleQuestionBlock = React.createClass({
           <code className={ isCorrect ? "correct db w-100" : "wrong db w-100" }>
             <span className={ isCorrect ? "green" : "bg-red white" }>
               .{ this.props.answer } 
-              <i className="material-icons ph2 v-btm">{ isCorrect ? "check_circle" : "error"}</i>
+              <i className="material-icons ph1 v-btm">{ isCorrect ? "check_circle" : "error"}</i>
             </span>
             { " { " }
             <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>
@@ -1018,8 +998,10 @@ var StyleQuestionLog = React.createClass({
 
 var Application = React.createClass({
   getInitialState: function() {
-    var initialData = this.props.myData;
-    initialData.questions = _.orderBy(_.shuffle(initialData.questions), ['seen', 'proficiency'], ['asc', 'asc']);
+    var initialData = this.props.myData || { score:0, log:[], questions:[] };
+    initialData.questions = initialData.questions.length 
+      ? _.orderBy(_.shuffle(initialData.questions), ['seen', 'proficiency'], ['asc', 'asc'])
+      : this.addQuestion(5, initialData.questions);
     return {
       data: initialData,
       currentQuestionID: initialData.questions[0].id,
@@ -1052,11 +1034,13 @@ var Application = React.createClass({
     this.setState(this.state);
   },
 
-  addQuestion: function(num) {
+  addQuestion: function(num, target) {
     var num = num ? num : 1;
+    var isTarget = target ? true : false;
+    target = target || this.state.data.questions;
 
     // Query for random array with answered questions filtered out
-    var answered = _.map(this.state.data.questions, 'id');
+    var answered = _.map(target, 'id');
     var filteredQuestions = _.pickBy(DATA.questions, function(value, key) {
       return !_.includes(answered, value.id);;
     });
@@ -1065,19 +1049,19 @@ var Application = React.createClass({
     if (available.length) {
       var count = available.length > num ? num : available.length;
       for(var i = 0; i < count; i++) {
-        this.state.data.questions.push({
+        target.push({
           id: available[i],
           proficiency: 0,
           correct: 0,
           seen: 0,
         });
       }
-      this.setState(this.state);
+      if (!isTarget) this.setState(this.state);
       console.log("New Question Added!");
-      return available[0];
+      return isTarget ? target : available[0];
     } else {
       console.log("No more new questions to add");
-      return false;
+      return target;
     }
 
   },
@@ -1117,7 +1101,7 @@ var Application = React.createClass({
           <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Material+Icons" />
           <style>{
-            ".material-icons {font-size:inherit;}"
+            '.material-icons {font-size:inherit;} .code, code {font-family: Source Code Pro;}'
           }</style>
         </Head>
         <div className="vh-100 pa4 mw7 center">
@@ -1162,4 +1146,4 @@ var Application = React.createClass({
   }
 })
 
-export default () => <Application questions={DATA.questions} myData ={MYDATA} />
+export default () => <Application questions={DATA.questions} myData={ { score:0, log:[], questions:[] } } />
