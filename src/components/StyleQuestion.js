@@ -1,5 +1,4 @@
 import React from 'react';
-import jQuery from 'jquery';
 
 var StyleQuestionBlock = React.createClass({
   getInitialState: function() {

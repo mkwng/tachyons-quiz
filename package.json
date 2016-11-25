@@ -1,24 +1,23 @@
 {
-  "name": "tachyons-quiz",
+  "name": "tachyonspro",
   "version": "1.0.0",
   "author": "mkwng",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mkwng/tachyons-quiz.git"
-  },
   "homepage": "http://tachyons.pro",
+  "devDependencies": {
+    "react-scripts": "0.7.0"
+  },
   "dependencies": {
-    "css-loader": "^0.26.0",
-    "jquery": "^3.1.1",
-    "next": "^1.1.2",
-    "style-loader": "^0.13.1",
-    "tachyons": "^4.5.2",
-    "tachyons-cli": "^1.0.8"
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "tachyons": "^4.5.5",
+    "tachyons-cli": "^1.0.10",
+    "jquery": "^3.1.1"
   },
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next --port $PORT",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
     "css": "tachyons src/css/app.css > src/index.css --minify",
     "prestart": "npm run css",
     "prebuild": "npm run css"

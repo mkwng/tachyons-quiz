@@ -1,16 +1,12 @@
 import React from 'react';
-import Head from 'next/head';
-import jQuery from 'jquery';
-import questions from '../src/questions.js'
+
+var StyleQuestionBlock = require('./StyleQuestion.js').StyleQuestionBlock;
+var StyleQuestionLog = require('./StyleQuestion.js').StyleQuestionLog;
 
 var _ = require('lodash');
-// var css = require("!style!css!../src/index.css");
+var jQuery = require('jquery');
 
-var StyleQuestionBlock = require('../components/StyleQuestion.js').StyleQuestionBlock;
-var StyleQuestionLog = require('../components/StyleQuestion.js').StyleQuestionLog;
-
-
-var Application = React.createClass({
+var TerminalWindow = React.createClass({  
   getInitialState: function() {
     var initialData = this.props.myData || { score:0, log:[], questions:[] };
     initialData.questions = initialData.questions.length 
@@ -49,14 +45,14 @@ var Application = React.createClass({
   },
 
   addQuestion: function(num, target) {
-    var num = num ? num : 1;
+    num = num ? num : 1;
     var isTarget = target ? true : false;
     target = target || this.state.data.questions;
 
     // Query for random array with answered questions filtered out
     var answered = _.map(target, 'id');
     var filteredQuestions = _.pickBy(this.props.questions, function(value, key) {
-      return !_.includes(answered, value.id);;
+      return !_.includes(answered, value.id);
     });
     var available = _.shuffle(_.map(filteredQuestions, 'id'));
 
@@ -106,57 +102,45 @@ var Application = React.createClass({
 
   render: function() {
     var target =  _.find(this.props.questions, {id: this.state.currentQuestionID});
-    var previous = _.find(this.props.questions, {id: this.state.previousQuestionID}) || {answer:"", url:""};
+    
     return (
-      <div>
-        <Head>
-          <title>Tachyons Pro</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Material+Icons" />
-          <style>{
-            '.material-icons {font-size:inherit;} .code, code {font-family: Source Code Pro;}'
-          }</style>
-        </Head>
-        <div className="vh-100 pa4 mw7 center">
-          <h1 className="f5 mv4 sans-serif">Are you a Tachyons Pro?</h1>
-          <p className="f5 mt4 mb5 sans-serif">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
-
-          <div className="w-100 vh-50 bg-black-80 white-80 overflow-hidden br3 relative">
-            <div className="absolute top-0 left-0 w-100 h2 bg-white-50">
-              <span className="w1 h1 br-100 bg-white-50 dib mv2 mr1 ml2"></span>
-              <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
-              <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
-            </div>
-
-            <div 
-              className="w-100 h-100 overflow-hidden pv4"
-              ref={ (div) => { this.scrollWindow = div; } }
-            >
-            <div 
-              className="w-100 pl4 f5 code"
-              ref={ (div) => { this.innerWindow = div; } }
-            >
-              <StyleQuestionLog
-                questionLog={ this.props.myData.log }
-                didAdd={ this.didAddLog }
-              />
-              <StyleQuestionBlock
-                tachyonsStyle={ target }
-                isEditable={ true }
-                onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
-              />
-              <br /> 
-            </div>
-            </div>
-
-            <div className="absolute bottom-0 left-0 w-100 h2 bg-black-90"></div>
-
-          </div>
-
+      <div className="w-100 vh-50 bg-black-80 white-80 overflow-hidden br3 relative">
+        <div className="absolute top-0 left-0 w-100 h2 bg-white-50">
+          <span className="w1 h1 br-100 bg-white-50 dib mv2 mr1 ml2"></span>
+          <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
+          <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
         </div>
+
+        <div 
+          className="w-100 h-100 overflow-hidden pv4"
+          ref={ (div) => { this.scrollWindow = div; } }
+        >
+        <div 
+          className="w-100 pl4 f5 code"
+          ref={ (div) => { this.innerWindow = div; } }
+        >
+          <StyleQuestionLog
+            questionLog={ this.props.myData.log }
+            didAdd={ this.didAddLog }
+          />
+          <StyleQuestionBlock
+            tachyonsStyle={ target }
+            isEditable={ true }
+            onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
+          />
+          <br /> 
+        </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 w-100 h2 bg-black-90"></div>
+
       </div>
     );
   }
-})
+});
 
-export default () => <Application questions={questions.questions} myData={ { score:0, log:[], questions:[] } } />
+
+
+module.exports = {
+  TerminalWindow: TerminalWindow
+}
