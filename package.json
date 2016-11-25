@@ -8,12 +8,19 @@
   },
   "homepage": "http://tachyons.pro",
   "dependencies": {
+    "css-loader": "^0.26.0",
     "jquery": "^3.1.1",
-    "next": "^1.1.2"
+    "next": "^1.1.2",
+    "style-loader": "^0.13.1",
+    "tachyons": "^4.5.2",
+    "tachyons-cli": "^1.0.8"
   },
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next --port $PORT"
+    "start": "next --port $PORT",
+    "css": "tachyons src/css/app.css > src/index.css --minify",
+    "prestart": "npm run css",
+    "prebuild": "npm run css"
   }
 }

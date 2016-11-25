@@ -1,4 +1,4 @@
-{
+module.exports = {
   "questions": [
     {
       "id": 1,
