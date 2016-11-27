@@ -13,3 +13,28 @@ body {
 .code, code {
   font-family: Source Code Pro;
 }
+
+.lighter { color:#E7E8EA /* Lighter */ }
+.light { color:#D1D2D4 /* Light */ }
+.grey4 { color:#21252B /* Darker */ }
+.grey3 { color:#282C34 /* BG */ }
+.grey2 { color:#5C6370 /* Comments */ }
+.grey1 { color:#A6B2BF /* Text */ }
+.green { color:#46BB86 /* Green */ }
+.blue { color:#41BDFF /* Blue */ }
+.orange { color:#F99728 /* Orange */ }
+
+
+.bg-lighter { background-color:#E7E8EA /* Lighter */ }
+.bg-light { background-color:#D1D2D4 /* Light */ }
+.bg-grey4 { background-color:#21252B /* Darker */ }
+.bg-grey3 { background-color:#282C34 /* BG */ }
+.bg-grey2 { background-color:#5C6370 /* Comments */ }
+.bg-grey1 { background-color:#A6B2BF /* Text */ }
+.bg-green { background-color:#46BB86 /* Green */ }
+.bg-blue { background-color:#41BDFF /* Blue */ }
+.bg-orange { background-color:#F99728 /* Orange */ }
+
+code.language-css {color:#F99728}
+code.language-css .token.property, .language-css .token.punctuation {color:#A6B2BF}
+code.language-css .token.comment {color:#5C6370}

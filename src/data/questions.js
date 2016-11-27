@@ -2,42 +2,42 @@ module.exports = {
   "questions": [
     {
       "id": 1,
-      "question": "font-size: 3rem; //1st step in size scale",
+      "question": "font-size: 3rem; /* 1st step in size scale */",
       "answer": "f1",
       "categories": ["Typography", "Type Scale"],
       "url": "http://tachyons.io/docs/typography/scale/"
     },
     {
       "id": 2,
-      "question": "font-size: 2.25rem; //2nd step in size scale",
+      "question": "font-size: 2.25rem; /* 2nd step in size scale */",
       "answer": "f2",
       "categories": ["Typography", "Type Scale"],
       "url": "http://tachyons.io/docs/typography/scale/"
     },
     {
       "id": 3,
-      "question": "font-size: 1.5rem; //3rd step in size scale",
+      "question": "font-size: 1.5rem; /* 3rd step in size scale */",
       "answer": "f3",
       "categories": ["Typography", "Type Scale"],
       "url": "http://tachyons.io/docs/typography/scale/"
     },
     {
       "id": 4,
-      "question": "font-size: 1.25rem; //4th step in size scale",
+      "question": "font-size: 1.25rem; /* 4th step in size scale */",
       "answer": "f4",
       "categories": ["Typography", "Type Scale"],
       "url": "http://tachyons.io/docs/typography/scale/"
     },
     {
       "id": 5,
-      "question": "font-size: 1rem; //5th step in size scale",
+      "question": "font-size: 1rem; /* 5th step in size scale */",
       "answer": "f5",
       "categories": ["Typography", "Type Scale"],
       "url": "http://tachyons.io/docs/typography/scale/"
     },
     {
       "id": 6,
-      "question": "font-size: .875rem; //6th step in size scale",
+      "question": "font-size: .875rem; /* 6th step in size scale */",
       "answer": "f6",
       "categories": ["Typography", "Type Scale"],
       "url": "http://tachyons.io/docs/typography/scale/"
@@ -47,21 +47,21 @@ module.exports = {
 
     {
       "id": 7,
-      "question": "max-width: 30em; //~66 characters",
+      "question": "max-width: 30em; /* ~66 characters */",
       "answer": "measure",
       "categories": ["Typography", "Measure"],
       "url": "http://tachyons.io/docs/typography/measure/"
     },
     {
       "id": 8,
-      "question": "max-width: 34em; //~80 characters",
+      "question": "max-width: 34em; /* ~80 characters */",
       "answer": "measure-wide",
       "categories": ["Typography", "Measure"],
       "url": "http://tachyons.io/docs/typography/measure/"
     },
     {
       "id": 9,
-      "question": "max-width: 20em; //~45 characters",
+      "question": "max-width: 20em; /* ~45 characters */",
       "answer": "measure-narrow",
       "categories": ["Typography", "Measure"],
       "url": "http://tachyons.io/docs/typography/measure/"
@@ -360,56 +360,56 @@ module.exports = {
 
     {
       "id": 47,
-      "question": "padding: 0; //--spacing-none",
+      "question": "padding: 0; /* --spacing-none */",
       "answer": "pa0",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 56,
-      "question": "padding-left: .25rem; //--spacing-extra-small",
+      "question": "padding-left: .25rem; /* --spacing-extra-small */",
       "answer": "pl1",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 65,
-      "question": "padding-right: .5rem; //--spacing-small",
+      "question": "padding-right: .5rem; /* --spacing-small */",
       "answer": "pr2",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 74,
-      "question": "padding-bottom: 1rem; //--spacing-medium",
+      "question": "padding-bottom: 1rem; /* --spacing-medium */",
       "answer": "pb3",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 83,
-      "question": "padding-top: 2rem; //--spacing-large",
+      "question": "padding-top: 2rem; /* --spacing-large */",
       "answer": "pt4",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 106,
-      "question": "margin: 4rem; //--spacing-extra-large",
+      "question": "margin: 4rem; /* --spacing-extra-large */",
       "answer": "ma5",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 124,
-      "question": "margin-right: 8rem; //--spacing-extra-extra-large",
+      "question": "margin-right: 8rem; /* --spacing-extra-extra-large */",
       "answer": "mr6",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
     },
     {
       "id": 142,
-      "question": "margin-top: 16rem; //--spacing-extra-extra-extra-large",
+      "question": "margin-top: 16rem; /* --spacing-extra-extra-extra-large */",
       "answer": "mt7",
       "categories": ["Layout", "Spacing"],
       "url": "http://tachyons.io/docs/layout/spacing/"
@@ -443,7 +443,7 @@ module.exports = {
 
     {
       "id": 163,
-      "question": "clear: both; //Clearfix solution",
+      "question": "clear: both; /* Clearfix solution */",
       "answer": "cf",
       "categories": ["Layout", "Clearfix"],
       "url": "http://tachyons.io/docs/layout/clearfix/"
@@ -533,35 +533,35 @@ module.exports = {
 
     {
       "id": 175,
-      "question": "width: 1rem; // 1st step in width scale",
+      "question": "width: 1rem; /* 1st step in width scale */",
       "answer": "w1",
       "categories": ["Layout", "Widths"],
       "url": "http://tachyons.io/docs/layout/widths/"
     },
     {
       "id": 176,
-      "question": "width: 2rem; // 2nd step in width scale",
+      "question": "width: 2rem; /* 2nd step in width scale */",
       "answer": "w2",
       "categories": ["Layout", "Widths"],
       "url": "http://tachyons.io/docs/layout/widths/"
     },
     {
       "id": 177,
-      "question": "width: 4rem; // 3rd step in width scale",
+      "question": "width: 4rem; /* 3rd step in width scale */",
       "answer": "w3",
       "categories": ["Layout", "Widths"],
       "url": "http://tachyons.io/docs/layout/widths/"
     },
     {
       "id": 178,
-      "question": "width: 8rem; // 4th step in width scale",
+      "question": "width: 8rem; /* 4th step in width scale */",
       "answer": "w4",
       "categories": ["Layout", "Widths"],
       "url": "http://tachyons.io/docs/layout/widths/"
     },
     {
       "id": 179,
-      "question": "width: 16rem; // 5th step in width scale",
+      "question": "width: 16rem; /* 5th step in width scale */",
       "answer": "w5",
       "categories": ["Layout", "Widths"],
       "url": "http://tachyons.io/docs/layout/widths/"
@@ -627,14 +627,14 @@ module.exports = {
     },
     {
       "id": 198,
-      "question": "max-width: 1rem; //1st step in width scale",
+      "question": "max-width: 1rem; /* 1st step in width scale */",
       "answer": "mw1",
       "categories": ["Layout", "Max Widths"],
       "url": "http://tachyons.io/docs/layout/max-widths/"
     },
     {
       "id": 209,
-      "question": "max-width: 96rem; //9th step in width scale",
+      "question": "max-width: 96rem; /* 9th step in width scale */",
       "answer": "mw9",
       "categories": ["Layout", "Max Widths"],
       "url": "http://tachyons.io/docs/layout/max-widths/"
@@ -651,35 +651,35 @@ module.exports = {
 
     {
       "id": 211,
-      "question": "height: 1rem; // 1st step in height scale",
+      "question": "height: 1rem; /* 1st step in height scale */",
       "answer": "h1",
       "categories": ["Layout", "Heights"],
       "url": "http://tachyons.io/docs/layout/heights/"
     },
     {
       "id": 212,
-      "question": "height: 2rem; // 2nd step in height scale",
+      "question": "height: 2rem; /* 2nd step in height scale */",
       "answer": "h2",
       "categories": ["Layout", "Heights"],
       "url": "http://tachyons.io/docs/layout/heights/"
     },
     {
       "id": 213,
-      "question": "height: 4rem; // 3rd step in height scale",
+      "question": "height: 4rem; /* 3rd step in height scale */",
       "answer": "h3",
       "categories": ["Layout", "Heights"],
       "url": "http://tachyons.io/docs/layout/heights/"
     },
     {
       "id": 214,
-      "question": "height: 8rem; // 4th step in height scale",
+      "question": "height: 8rem; /* 4th step in height scale */",
       "answer": "h4",
       "categories": ["Layout", "Heights"],
       "url": "http://tachyons.io/docs/layout/heights/"
     },
     {
       "id": 215,
-      "question": "height: 16rem; // 5th step in height scale",
+      "question": "height: 16rem; /* 5th step in height scale */",
       "answer": "h5",
       "categories": ["Layout", "Heights"],
       "url": "http://tachyons.io/docs/layout/heights/"

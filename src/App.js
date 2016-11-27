@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import TerminalWindow from './components/TerminalWindow';
 var QUESTIONS = require('./data/questions.js').questions;
 
-var TerminalWindow = require('./components/TerminalWindow.js').TerminalWindow;
+var myData = JSON.parse(localStorage.getItem("tachyonsQuiz")) || { score:0, log:[], questions:[] };
 
 class App extends Component {
   render() {
@@ -10,11 +11,12 @@ class App extends Component {
         <h1 className="f5 mv4 sans-serif">Are you a Tachyons Pro?</h1>
         <p className="f5 mt4 mb5 sans-serif">Learn Tachyons by memorizing the class names. <a href="http://tachyons.io" target="_blank">What is Tachyons?</a></p>
 
-        <TerminalWindow questions={QUESTIONS} myData={ { score:0, log:[], questions:[] } } />
+        <TerminalWindow questions={ QUESTIONS } myData={ myData } />
 
       </div>
     );
   }
 }
+
 
 export default App;

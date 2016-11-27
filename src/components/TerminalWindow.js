@@ -1,7 +1,6 @@
 import React from 'react';
-
-var StyleQuestionBlock = require('./StyleQuestion.js').StyleQuestionBlock;
-var StyleQuestionLog = require('./StyleQuestion.js').StyleQuestionLog;
+import StyleQuestionBlock from './StyleQuestionBlock.js';
+import StyleQuestionLog from './StyleQuestionLog.js';
 
 var _ = require('lodash');
 var jQuery = require('jquery');
@@ -41,6 +40,7 @@ var TerminalWindow = React.createClass({
       answer: userAnswer
     });
     this.state.currentQuestionID = this.nextQuestionID();
+    localStorage.setItem('tachyonsQuiz',JSON.stringify(this.state.data));
     this.setState(this.state);
   },
 
@@ -104,11 +104,11 @@ var TerminalWindow = React.createClass({
     var target =  _.find(this.props.questions, {id: this.state.currentQuestionID});
     
     return (
-      <div className="w-100 vh-50 bg-black-80 white-80 overflow-hidden br3 relative">
-        <div className="absolute top-0 left-0 w-100 h2 bg-white-50">
-          <span className="w1 h1 br-100 bg-white-50 dib mv2 mr1 ml2"></span>
-          <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
-          <span className="w1 h1 br-100 bg-white-50 dib mv2 mh1"></span>
+      <div className="w-100 vh-50 bg-grey3 grey1 overflow-hidden br3 relative">
+        <div className="absolute top-0 left-0 w-100 h2 bg-light">
+          <span className="w1 h1 br-100 bg-lighter dib mv2 mr1 ml2"></span>
+          <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
+          <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
         </div>
 
         <div 
@@ -132,15 +132,11 @@ var TerminalWindow = React.createClass({
         </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-100 h2 bg-black-90"></div>
+        <div className="absolute bottom-0 left-0 w-100 h2 bg-grey4"></div>
 
       </div>
     );
   }
 });
 
-
-
-module.exports = {
-  TerminalWindow: TerminalWindow
-}
+export default TerminalWindow;

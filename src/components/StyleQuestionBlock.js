@@ -11,6 +11,15 @@ var StyleQuestionBlock = React.createClass({
     setTimeout(function() {
       if (this.textInput) this.textInput.focus();
     }.bind(this),50);
+    if(window.Prism) {
+      window.Prism.highlightElement(this.propertyCode);
+    }
+  },
+
+  componentDidUpdate: function() {
+    if(window.Prism) {
+      window.Prism.highlightElement(this.propertyCode);
+    }
   },
 
   onAnswerChange: function(e) {
@@ -28,10 +37,10 @@ var StyleQuestionBlock = React.createClass({
   render: function() {
     var isCorrect = this.props.answer === this.props.tachyonsStyle.answer;
     var comment = (
-      <code className="db w-100 white-30 i">
+      <code className="db w-100 grey2 i">
         { "// " }
         { this.props.tachyonsStyle.categories[0] + ": " + this.props.tachyonsStyle.categories[1] + ". " }
-        <a className="white-30" href={this.props.tachyonsStyle.url}>See documentation</a>.
+        <a className="grey2" href={this.props.tachyonsStyle.url}>See documentation</a>.
       </code>
     );
     var selector = this.props.isEditable
@@ -43,7 +52,7 @@ var StyleQuestionBlock = React.createClass({
               type="text"
               value={this.state.answer}
               onChange={this.onAnswerChange}
-              ref={(input) => { this.textInput = input; }}
+              ref={ (input) => { this.textInput = input; } }
               />
           </form>
           { " {" }
@@ -55,12 +64,18 @@ var StyleQuestionBlock = React.createClass({
               <i className="material-icons ph1 v-btm">{ isCorrect ? "check_circle" : "error"}</i>
             </span>
             { " { " }
-            <span className={ isCorrect ? "dn white-30 i" : "di white-30 i" }>
+            <span className={ isCorrect ? "dn grey2 i" : "di grey2 i" }>
               { " // Correct answer: " + this.props.tachyonsStyle.answer }
             </span>
           </code>
         );
-    var property = (<code className="db w-100 pl3">{ this.props.tachyonsStyle.question }</code>);
+    var property = (
+      <code 
+        className="db w-100 pl3 language-css"
+        ref={ (code) => { this.propertyCode = code; } }>
+          { this.props.tachyonsStyle.question }
+      </code>
+    );
     return (
       <pre className="w-100 tl mv0">
         <code className="db w-100">{ " " }</code>
@@ -73,31 +88,4 @@ var StyleQuestionBlock = React.createClass({
   }
 });
 
-
-var StyleQuestionLog = React.createClass({
-  componentDidUpdate: function(prevProps, prevState) {
-    setTimeout(function() {
-      this.props.didAdd();
-    }.bind(this),50);
-  },
-
-  render: function() {
-    return (
-      <div>
-        { this.props.questionLog.map( (logEntry, i) => (
-            <StyleQuestionBlock
-              tachyonsStyle={ logEntry.tachyonsStyle }
-              answer={ logEntry.answer }
-              isEditable={ false }
-              key={ i }
-            />
-        ) ) }
-      </div>
-    );
-  }
-});
-
-module.exports = {
-  StyleQuestionBlock: StyleQuestionBlock,
-  StyleQuestionLog: StyleQuestionLog
-}
+export default StyleQuestionBlock;
