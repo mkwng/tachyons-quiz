@@ -76,6 +76,11 @@ var TerminalWindow = React.createClass({
 
   },
 
+  reset: function() {
+    confirm("Reset all progress? This can't be undone.");
+    localStorage.setItem('tachyonsQuiz', JSON.stringify({ score:0, log:[], questions:[] }));
+  },
+
   nextQuestionID: function() {
     // Store the previous ID
     this.state.previousQuestionID = this.state.currentQuestionID;
@@ -132,7 +137,9 @@ var TerminalWindow = React.createClass({
         </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-100 h2 bg-grey4"></div>
+        <div className="absolute bottom-0 left-0 w-100 h2 bg-grey4">
+          <a className="grey2" href="#" onClick={this.reset}><i className="material-icons">delete_forever</i> Reset progress</a>
+        </div>
 
       </div>
     );
