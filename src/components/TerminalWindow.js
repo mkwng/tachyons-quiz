@@ -23,11 +23,13 @@ var TerminalWindowFooter = React.createClass({
   },
   render: function() {
     const classes = "absolute bottom-0 left-0 w-100 h2 bg-grey4 f6 flex justify-between items-center";
-    const percentageCorrect = Math.round( 100 * this.props.questionLog.correct / this.props.questionLog.seen )
+    const percentageCorrect = Math.round( (this.props.questionLog.seen > 1 
+      ? (this.props.questionLog.correct / (this.props.questionLog.seen - 1))
+      : 0.001 ) * 100);
     return (
       <div className={ classes }>
         <div className="flex items-center">
-          <span className="grey2 mh2" data-tooltip="Number of times you've seen this question"><i className="material-icons ph1 v-btm">remove_red_eye</i> { this.props.questionLog.seen }</span>
+          <span className="grey2 mh2" data-tooltip="Number of times you've seen this question"><i className="material-icons ph1 v-btm">remove_red_eye</i> { this.props.questionLog.seen-1 }</span>
           <span className="grey2 mh2" data-tooltip="How often you got this question correct"><i className="material-icons ph1 v-btm">check_circle</i> { percentageCorrect }%</span>
           <a href="#" className="grey2 mh2" data-tooltip="Reset all progress" onClick={this.clickReset}><i className="material-icons ph1 v-btm">delete</i></a>
         </div>
@@ -146,8 +148,7 @@ var TerminalWindow = React.createClass({
     const classes = 'w-100 vh-50 bg-grey3 grey1 overflow-hidden br3 relative';
     const styles = {
       boxShadow: 'rgba(0,0,0,.08) 16px 16px 0'
-    }
-    
+    };
     return (
       <div className={ classes } style={ styles }>
         <TerminalWindowHeader />
@@ -157,7 +158,8 @@ var TerminalWindow = React.createClass({
           ref={ (div) => { this.scrollWindow = div; } }
         >
           <div 
-            className="w-100 pl4 f5 code"
+            className="w-100 pl2 f5 code"
+            style={ { counterReset: 'a' } }
             ref={ (div) => { this.innerWindow = div; } }
           >
             <StyleQuestionLog

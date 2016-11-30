@@ -34,18 +34,42 @@ body {
 .bg-green { background-color:#46BB86 /* Green */ }
 .bg-blue { background-color:#41BDFF /* Blue */ }
 .bg-orange { background-color:#F99728 /* Orange */ }
+.bg-white-03 { background-color:rgba(255,255,255,.03); }
 
 code.language-css {color:#F99728}
 code.language-css .token.property, .language-css .token.punctuation {color:#A6B2BF}
 code.language-css .token.comment {color:#5C6370}
 
+
+
+code {
+  counter-increment: a;
+}
+code:before {
+  content: counter(a);
+  user-select: none;
+  color: #5C6370;
+  font-style: normal;
+  width: 4ch;
+  display: inline-block;
+  overflow: hidden;
+  opacity: .5;
+}
+code.language-css:before {
+  width: 7ch;
+}
+pre.active code.language-css {
+  background-color: rgba(255,255,255,.05);
+}
+
+
+/* https://chrisbracco.com/a-simple-css-tooltip/ */
 /* Add this attribute to the element that needs a tooltip */
 [data-tooltip] {
   position: relative;
   z-index: 2;
   cursor: pointer;
 }
-
 /* Hide the tooltip content by default */
 [data-tooltip]:before,
 [data-tooltip]:after {
@@ -53,7 +77,6 @@ code.language-css .token.comment {color:#5C6370}
   opacity: 0;
   pointer-events: none;
 }
-
 /* Position tooltip above the element */
 [data-tooltip]:before {
   position: absolute;
@@ -68,7 +91,6 @@ code.language-css .token.comment {color:#5C6370}
   text-align: center;
   font-size: .8rem;
 }
-
 /* Triangle hack to make tooltip look like a speech bubble */
 [data-tooltip]:after {
   position: absolute;
@@ -83,7 +105,6 @@ code.language-css .token.comment {color:#5C6370}
   font-size: 0;
   line-height: 0;
 }
-
 /* Show tooltip content on hover */
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after {

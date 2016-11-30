@@ -51,7 +51,7 @@ var StyleQuestionBlock = React.createClass({
     );
     var selector = this.props.isEditable
       ? (
-        <code className="db w-100">
+        <code className="db w-100 bg-white-03">
           <form onSubmit={this.onSubmit} className="dib green">
             .<input
               className="w1 outline-0 b--none pa0 bg-transparent green"
@@ -77,7 +77,7 @@ var StyleQuestionBlock = React.createClass({
         );
     var property = (
       <code 
-        className="db w-100 pl3 language-css"
+        className="db w-100 language-css"
         ref={ (code) => { this.propertyCode = code; } }>
           { this.props.tachyonsStyle.question }
       </code>
