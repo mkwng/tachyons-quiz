@@ -891,5 +891,297 @@ module.exports = {
       "url": "http://tachyons.io/docs/layout/position/"
     },
 
+
+
+    {
+      "id": 300,
+      "question": "background-size: cover!important;",
+      "answer": "cover",
+      "categories": ["Themes", "Background Size"],
+      "url": "http://tachyons.io/docs/themes/background-size/"
+    },
+    {
+      "id": 301,
+      "question": "background-size: contain!important;",
+      "answer": "contain",
+      "categories": ["Themes", "Background Size"],
+      "url": "http://tachyons.io/docs/themes/background-size/"
+    },
+
+
+
+    {
+      "id": 302,
+      "question": "border-style: solid; border-width: 1px;",
+      "answer": "ba",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 303,
+      "question": "border-top-style: solid; border-top-width: 1px;",
+      "answer": "bt",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 307,
+      "question": "border-style: none; border-width: 0;",
+      "answer": "bn",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 308,
+      "question": "border-style: dotted;",
+      "answer": "b--dotted",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 306,
+      "question": "border-style: dashed;",
+      "answer": "b--dashed",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 307,
+      "question": "border-style: solid;",
+      "answer": "b--solid",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 308,
+      "question": "border-style: none;",
+      "answer": "b--none",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 350,
+      "question": "border-color: var(--transparent);",
+      "answer": "b--transparent",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 351,
+      "question": "border-width: 0;",
+      "answer": "bw0",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 352,
+      "question": "border-width: .125rem; /* 1st step in border width scale */",
+      "answer": "bw1",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 357,
+      "question": "border-width: 2rem; /* 5th step in border width scale */",
+      "answer": "bw5",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 358,
+      "question": "border-top-width: 0;",
+      "answer": "bt-0",
+      "categories": ["Themes", "Borders"],
+      "url": "http://tachyons.io/docs/themes/borders/"
+    },
+    {
+      "id": 375,
+      "question": "border-radius: 0;",
+      "answer": "br0",
+      "categories": ["Themes", "Border Radius"],
+      "url": "http://tachyons.io/docs/themes/border-radius/"
+    },
+    {
+      "id": 376,
+      "question": "border-radius: .125rem; /* 1st step in size scale */",
+      "answer": "br1",
+      "categories": ["Themes", "Border Radius"],
+      "url": "http://tachyons.io/docs/themes/border-radius/"
+    },
+    {
+      "id": 377,
+      "question": "border-radius: 1rem; /* 4th step in size scale */",
+      "answer": "br4",
+      "categories": ["Themes", "Border Radius"],
+      "url": "http://tachyons.io/docs/themes/border-radius/"
+    },
+    {
+      "id": 378,
+      "question": "border-radius: 100%;",
+      "answer": "br-100",
+      "categories": ["Themes", "Border Radius"],
+      "url": "http://tachyons.io/docs/themes/border-radius/"
+    },
+    {
+      "id": 379,
+      "question": "border-radius: 9999px;",
+      "answer": "br-pill",
+      "categories": ["Themes", "Border Radius"],
+      "url": "http://tachyons.io/docs/themes/border-radius/"
+    },
+    {
+      "id": 380,
+      "question": "border-bottom-left-radius: 0; border-bottom-right-radius: 0; /* Set all but top to no radius */",
+      "answer": "br--top",
+      "categories": ["Themes", "Border Radius"],
+      "url": "http://tachyons.io/docs/themes/border-radius/"
+    },
+
+
+
+    {
+      "id": 401,
+      "question": "opacity: 1;",
+      "answer": "o-100",
+      "categories": ["Themes", "Opacity"],
+      "url": "http://tachyons.io/docs/themes/opacity/"
+    },
+    {
+      "id": 402,
+      "question": "opacity: .9;",
+      "answer": "o-90",
+      "categories": ["Themes", "Opacity"],
+      "url": "http://tachyons.io/docs/themes/opacity/"
+    },
+    {
+      "id": 403,
+      "question": "opacity: .1;",
+      "answer": "o-10",
+      "categories": ["Themes", "Opacity"],
+      "url": "http://tachyons.io/docs/themes/opacity/"
+    },
+    {
+      "id": 404,
+      "question": "opacity: .05;",
+      "answer": "o-05",
+      "categories": ["Themes", "Opacity"],
+      "url": "http://tachyons.io/docs/themes/opacity/"
+    },
+    {
+      "id": 405,
+      "question": "opacity: .025;",
+      "answer": "o-025",
+      "categories": ["Themes", "Opacity"],
+      "url": "http://tachyons.io/docs/themes/opacity/"
+    },
+    {
+      "id": 406,
+      "question": "opacity: 0;",
+      "answer": "o-0",
+      "categories": ["Themes", "Opacity"],
+      "url": "http://tachyons.io/docs/themes/opacity/"
+    },
+
+
+
+    {
+      "id": 500,
+      "question": "display: flex;",
+      "answer": "flex",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 501,
+      "question": "display: inline-flex;",
+      "answer": "inline-flex",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 502,
+      "question": "flex-direction: column;",
+      "answer": "flex-column",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 503,
+      "question": "flex-direction: row;",
+      "answer": "flex-row",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 504,
+      "question": "align-items: flex-start;",
+      "answer": "items-start",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 505,
+      "question": "align-items: flex-end;",
+      "answer": "items-end",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 506,
+      "question": "align-items: flex-center;",
+      "answer": "items-center",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 507,
+      "question": "justify-content: flex-start;",
+      "answer": "justify-start",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 508,
+      "question": "justify-content: flex-end;",
+      "answer": "justify-end",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 509,
+      "question": "justify-content: flex-center;",
+      "answer": "justify-center",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 510,
+      "question": "justify-content: space-between;",
+      "answer": "justify-between",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 511,
+      "question": "justify-content: space-around;",
+      "answer": "justify-around",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 512,
+      "question": "order: 0;",
+      "answer": "order-0",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+    {
+      "id": 513,
+      "question": "order: 99999;",
+      "answer": "order-last",
+      "categories": ["Flexbox", "Flex"],
+      "url": "http://tachyons.io/docs/table-of-styles/"
+    },
+
   ]
 }

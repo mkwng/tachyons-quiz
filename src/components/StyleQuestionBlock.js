@@ -34,6 +34,12 @@ var StyleQuestionBlock = React.createClass({
     return this.props.onAnswer(this.state.answer);
   },
 
+  clickPre: function() {
+    if (this.props.isEditable) {
+      if (this.textInput) this.textInput.focus();
+    }
+  },
+
   render: function() {
     var isCorrect = this.props.answer === this.props.tachyonsStyle.answer;
     var comment = (
@@ -77,7 +83,7 @@ var StyleQuestionBlock = React.createClass({
       </code>
     );
     return (
-      <pre className="w-100 tl mv0">
+      <pre className="w-100 tl mv0" onClick={ this.clickPre } >
         <code className="db w-100">{ " " }</code>
         { comment }
         { selector }

@@ -114,9 +114,10 @@ var TerminalWindow = React.createClass({
   },
 
   reset: function() {
-    confirm("Reset all progress? This can't be undone.");
-    localStorage.setItem('tachyonsQuiz', JSON.stringify({ score:0, log:[], questions:[] }));
-    window.location.reload();
+    if( confirm("Reset all progress? This can't be undone.") ) {
+      localStorage.setItem('tachyonsQuiz', JSON.stringify({ score:0, log:[], questions:[] }));
+      window.location.reload(); 
+    }
   },
 
   nextQuestionID: function() {
@@ -143,9 +144,12 @@ var TerminalWindow = React.createClass({
 
   render: function() {
     const classes = 'w-100 vh-50 bg-grey3 grey1 overflow-hidden br3 relative';
+    const styles = {
+      boxShadow: 'rgba(0,0,0,.08) 16px 16px 0'
+    }
     
     return (
-      <div className={ classes }>
+      <div className={ classes } style={ styles }>
         <TerminalWindowHeader />
 
         <div 
