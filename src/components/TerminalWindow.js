@@ -29,9 +29,9 @@ var TerminalWindowFooter = React.createClass({
         <div className="flex items-center">
           <span className="grey2 mh2" data-tooltip="Number of times you've seen this question"><i className="material-icons ph1 v-btm">remove_red_eye</i> { this.props.questionLog.seen }</span>
           <span className="grey2 mh2" data-tooltip="How often you got this question correct"><i className="material-icons ph1 v-btm">check_circle</i> { percentageCorrect }%</span>
+          <a href="#" className="grey2 mh2" data-tooltip="Reset all progress" onClick={this.clickReset}><i className="material-icons ph1 v-btm">delete</i></a>
         </div>
         <div className="flex items-center">
-          <a href="#" className="grey2 mh2" onClick={this.clickReset}><i className="material-icons ph1 v-btm">delete</i> Reset progress</a>
           <span className="grey2 mh2" >press Return <i className="material-icons ph1 v-btm">keyboard_return</i></span>
         </div>
       </div>    
