@@ -5,6 +5,30 @@ import StyleQuestionLog from './StyleQuestionLog.js';
 var _ = require('lodash');
 var jQuery = require('jquery');
 
+
+const TerminalWindowHeader = (...props) => {
+  const classes = 'absolute top-0 left-0 w-100 h2 bg-light';
+  return (
+    <div className={ classes }>
+      <span className="w1 h1 br-100 bg-lighter dib mv2 mr1 ml2"></span>
+      <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
+      <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
+    </div>
+  );
+} 
+
+const TerminalWindowFooter = (...props) => {
+  const classes = "absolute bottom-0 left-0 w-100 h2 bg-grey4";
+  return (
+    <div className={ classes }>
+      <span className="grey2" ><i className="material-icons">remove_red_eye</i> 123</span>
+      <span className="grey2" ><i className="material-icons">check_circle</i> 50%</span>
+      <a href="#" className="grey2" ><i className="material-icons">delete_forever</i> Reset progress</a>
+      
+    </div>    
+  );
+}
+
 var TerminalWindow = React.createClass({  
   getInitialState: function() {
     var initialData = this.props.myData || { score:0, log:[], questions:[] };
@@ -14,32 +38,35 @@ var TerminalWindow = React.createClass({
     return {
       data: initialData,
       currentQuestionID: initialData.questions[0].id,
-      previousQuestionID: null,
+      currentQuestionOwn: initialData.questions[0],
+      currentQuestionTachyons: _.find(this.props.questions, { id: initialData.questions[0].id })
     };
   },
 
   onAnswer: function(userAnswer) {
-    var question = _.find(this.state.data.questions, { id: this.state.currentQuestionID });
-    var tachyonsStyle = _.find(this.props.questions, { id: this.state.currentQuestionID });
-    question.seen += 1;
 
-    if (userAnswer === tachyonsStyle.answer) {
+    if (userAnswer === this.state.currentQuestionTachyons.answer) {
       console.log("Correct");
-      question.proficiency += 1;
-      question.correct += 1;
+      this.state.currentQuestionOwn.proficiency += 1;
+      this.state.currentQuestionOwn.correct += 1;
       this.state.score += 1;
     } else {
       console.log("Wrong");
-      question.proficiency = Math.max(question.proficiency - 1, 0);
+      this.state.currentQuestionOwn.proficiency = Math.max(this.state.currentQuestionOwn.proficiency - 1, 0);
     }
 
     // Change question
     this.state.data.log.push({
       id: this.state.data.log.length,
-      tachyonsStyle: tachyonsStyle,
+      tachyonsStyle: this.state.currentQuestionTachyons,
       answer: userAnswer
     });
     this.state.currentQuestionID = this.nextQuestionID();
+
+    this.state.currentQuestionOwn = _.find(this.state.data.questions, { id: this.state.currentQuestionID });
+    this.state.currentQuestionTachyons = _.find(this.props.questions, { id: this.state.currentQuestionID });
+    this.state.currentQuestionOwn.seen += 1;
+
     localStorage.setItem('tachyonsQuiz',JSON.stringify(this.state.data));
     this.setState(this.state);
   },
@@ -82,8 +109,6 @@ var TerminalWindow = React.createClass({
   },
 
   nextQuestionID: function() {
-    // Store the previous ID
-    this.state.previousQuestionID = this.state.currentQuestionID;
 
     // Get the first one in the list that hasn't been seen.
     var nextQuestion = this.state.currentQuestionID ?
@@ -106,15 +131,11 @@ var TerminalWindow = React.createClass({
   },
 
   render: function() {
-    var target =  _.find(this.props.questions, {id: this.state.currentQuestionID});
+    const classes = 'w-100 vh-50 bg-grey3 grey1 overflow-hidden br3 relative';
     
     return (
-      <div className="w-100 vh-50 bg-grey3 grey1 overflow-hidden br3 relative">
-        <div className="absolute top-0 left-0 w-100 h2 bg-light">
-          <span className="w1 h1 br-100 bg-lighter dib mv2 mr1 ml2"></span>
-          <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
-          <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
-        </div>
+      <div className={ classes }>
+        <TerminalWindowHeader />
 
         <div 
           className="w-100 h-100 overflow-hidden pv4"
@@ -129,17 +150,17 @@ var TerminalWindow = React.createClass({
             didAdd={ this.didAddLog }
           />
           <StyleQuestionBlock
-            tachyonsStyle={ target }
+            tachyonsStyle={ this.state.currentQuestionTachyons }
             isEditable={ true }
-            onAnswer={ function(isCorrect) {this.onAnswer(isCorrect)}.bind(this) }
+            onAnswer={ function(answer) {this.onAnswer(answer)}.bind(this) }
           />
           <br /> 
         </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-100 h2 bg-grey4">
-          <a className="grey2" href="#" onClick={this.reset}><i className="material-icons">delete_forever</i> Reset progress</a>
-        </div>
+        <TerminalWindowFooter 
+          reset={ this.reset }
+        />
 
       </div>
     );
