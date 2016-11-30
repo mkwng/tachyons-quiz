@@ -110,7 +110,7 @@ var TerminalWindow = React.createClass({
       return isTarget ? target : available[0];
     } else {
       console.log("No more new questions to add");
-      return target;
+      return isTarget ? target : null;
     }
 
   },
@@ -129,7 +129,7 @@ var TerminalWindow = React.createClass({
       _.findIndex(this.state.data.questions, { id: this.state.currentQuestionID })
       : -1;
 
-    if (this.state.data.questions[nextQuestion+1] && this.state.data.questions[nextQuestion+1].proficiency <= 4) {
+    if (this.state.data.questions[nextQuestion+1] && this.state.data.questions[nextQuestion+1].proficiency <= 3) {
       return this.state.data.questions[nextQuestion+1].id;
     } else {
       this.addQuestion(5);
