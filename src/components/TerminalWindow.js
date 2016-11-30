@@ -17,17 +17,27 @@ const TerminalWindowHeader = (...props) => {
   );
 } 
 
-const TerminalWindowFooter = (...props) => {
-  const classes = "absolute bottom-0 left-0 w-100 h2 bg-grey4";
-  return (
-    <div className={ classes }>
-      <span className="grey2" ><i className="material-icons">remove_red_eye</i> 123</span>
-      <span className="grey2" ><i className="material-icons">check_circle</i> 50%</span>
-      <a href="#" className="grey2" ><i className="material-icons">delete_forever</i> Reset progress</a>
-      
-    </div>    
-  );
-}
+var TerminalWindowFooter = React.createClass({
+  clickReset: function() {
+    this.props.reset();
+  },
+  render: function() {
+    const classes = "absolute bottom-0 left-0 w-100 h2 bg-grey4 f6 flex justify-between items-center";
+    const percentageCorrect = Math.round( 100 * this.props.questionLog.correct / this.props.questionLog.seen )
+    return (
+      <div className={ classes }>
+        <div className="flex items-center">
+          <span className="grey2 mh2" data-tooltip="Number of times you've seen this question"><i className="material-icons ph1 v-btm">remove_red_eye</i> { this.props.questionLog.seen }</span>
+          <span className="grey2 mh2" data-tooltip="How often you got this question correct"><i className="material-icons ph1 v-btm">check_circle</i> { percentageCorrect }%</span>
+        </div>
+        <div className="flex items-center">
+          <a href="#" className="grey2 mh2" onClick={this.clickReset}><i className="material-icons ph1 v-btm">delete</i> Reset progress</a>
+          <span className="grey2 mh2" >press Return <i className="material-icons ph1 v-btm">keyboard_return</i></span>
+        </div>
+      </div>    
+    );
+  }
+})
 
 var TerminalWindow = React.createClass({  
   getInitialState: function() {
@@ -44,6 +54,7 @@ var TerminalWindow = React.createClass({
   },
 
   onAnswer: function(userAnswer) {
+    this.state.currentQuestionOwn.seen += 1;
 
     if (userAnswer === this.state.currentQuestionTachyons.answer) {
       console.log("Correct");
@@ -65,7 +76,6 @@ var TerminalWindow = React.createClass({
 
     this.state.currentQuestionOwn = _.find(this.state.data.questions, { id: this.state.currentQuestionID });
     this.state.currentQuestionTachyons = _.find(this.props.questions, { id: this.state.currentQuestionID });
-    this.state.currentQuestionOwn.seen += 1;
 
     localStorage.setItem('tachyonsQuiz',JSON.stringify(this.state.data));
     this.setState(this.state);
@@ -90,7 +100,7 @@ var TerminalWindow = React.createClass({
           id: available[i],
           proficiency: 0,
           correct: 0,
-          seen: 0,
+          seen: 1,
         });
       }
       if (!isTarget) this.setState(this.state);
@@ -106,6 +116,7 @@ var TerminalWindow = React.createClass({
   reset: function() {
     confirm("Reset all progress? This can't be undone.");
     localStorage.setItem('tachyonsQuiz', JSON.stringify({ score:0, log:[], questions:[] }));
+    window.location.reload();
   },
 
   nextQuestionID: function() {
@@ -141,25 +152,26 @@ var TerminalWindow = React.createClass({
           className="w-100 h-100 overflow-hidden pv4"
           ref={ (div) => { this.scrollWindow = div; } }
         >
-        <div 
-          className="w-100 pl4 f5 code"
-          ref={ (div) => { this.innerWindow = div; } }
-        >
-          <StyleQuestionLog
-            questionLog={ this.props.myData.log }
-            didAdd={ this.didAddLog }
-          />
-          <StyleQuestionBlock
-            tachyonsStyle={ this.state.currentQuestionTachyons }
-            isEditable={ true }
-            onAnswer={ function(answer) {this.onAnswer(answer)}.bind(this) }
-          />
-          <br /> 
-        </div>
+          <div 
+            className="w-100 pl4 f5 code"
+            ref={ (div) => { this.innerWindow = div; } }
+          >
+            <StyleQuestionLog
+              questionLog={ this.props.myData.log }
+              didAdd={ this.didAddLog }
+            />
+            <StyleQuestionBlock
+              tachyonsStyle={ this.state.currentQuestionTachyons }
+              isEditable={ true }
+              onAnswer={ function(answer) {this.onAnswer(answer)}.bind(this) }
+            />
+            <br /> 
+          </div>
         </div>
 
         <TerminalWindowFooter 
           reset={ this.reset }
+          questionLog={ this.state.currentQuestionOwn }
         />
 
       </div>
