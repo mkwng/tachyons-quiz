@@ -46,7 +46,7 @@ var TerminalWindow = React.createClass({
     var initialData = this.props.myData || { score:0, log:[], questions:[] };
     initialData.questions = initialData.questions.length 
       ? _.orderBy(_.shuffle(initialData.questions), ['seen', 'proficiency'], ['asc', 'asc'])
-      : this.addQuestion(5, initialData.questions);
+      : this.addQuestion(10, initialData.questions);
     return {
       data: initialData,
       currentQuestionID: initialData.questions[0].id,
