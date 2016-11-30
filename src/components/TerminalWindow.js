@@ -7,7 +7,7 @@ var jQuery = require('jquery');
 
 
 const TerminalWindowHeader = (...props) => {
-  const classes = 'absolute top-0 left-0 w-100 h2 bg-light';
+  const classes = 'absolute top-0 left-0 w-100 h2 bg-light z-1';
   return (
     <div className={ classes }>
       <span className="w1 h1 br-100 bg-lighter dib mv2 mr1 ml2"></span>
@@ -15,7 +15,7 @@ const TerminalWindowHeader = (...props) => {
       <span className="w1 h1 br-100 bg-lighter dib mv2 mh1"></span>
     </div>
   );
-} 
+}
 
 var TerminalWindowFooter = React.createClass({
   clickReset: function() {
@@ -23,7 +23,7 @@ var TerminalWindowFooter = React.createClass({
   },
   render: function() {
     const classes = "absolute bottom-0 left-0 w-100 h2 bg-grey4 f6 flex justify-between items-center";
-    const percentageCorrect = Math.round( (this.props.questionLog.seen > 1 
+    const percentageCorrect = Math.round( (this.props.questionLog.seen > 1
       ? (this.props.questionLog.correct / (this.props.questionLog.seen - 1))
       : 0.001 ) * 100);
     return (
@@ -36,15 +36,15 @@ var TerminalWindowFooter = React.createClass({
         <div className="flex items-center">
           <span className="grey2 mh2" >press Return <i className="material-icons ph1 v-btm">keyboard_return</i></span>
         </div>
-      </div>    
+      </div>
     );
   }
 })
 
-var TerminalWindow = React.createClass({  
+var TerminalWindow = React.createClass({
   getInitialState: function() {
     var initialData = this.props.myData || { score:0, log:[], questions:[] };
-    initialData.questions = initialData.questions.length 
+    initialData.questions = initialData.questions.length
       ? _.orderBy(_.shuffle(initialData.questions), ['seen', 'proficiency'], ['asc', 'asc'])
       : this.addQuestion(10, initialData.questions);
     return {
@@ -118,7 +118,7 @@ var TerminalWindow = React.createClass({
   reset: function() {
     if( confirm("Reset all progress? This can't be undone.") ) {
       localStorage.setItem('tachyonsQuiz', JSON.stringify({ score:0, log:[], questions:[] }));
-      window.location.reload(); 
+      window.location.reload();
     }
   },
 
@@ -153,11 +153,11 @@ var TerminalWindow = React.createClass({
       <div className={ classes } style={ styles }>
         <TerminalWindowHeader />
 
-        <div 
+        <div
           className="w-100 h-100 overflow-hidden pv4"
           ref={ (div) => { this.scrollWindow = div; } }
         >
-          <div 
+          <div
             className="w-100 pl2 f5 code"
             style={ { counterReset: 'a' } }
             ref={ (div) => { this.innerWindow = div; } }
@@ -171,11 +171,11 @@ var TerminalWindow = React.createClass({
               isEditable={ true }
               onAnswer={ function(answer) {this.onAnswer(answer)}.bind(this) }
             />
-            <br /> 
+            <br />
           </div>
         </div>
 
-        <TerminalWindowFooter 
+        <TerminalWindowFooter
           reset={ this.reset }
           questionLog={ this.state.currentQuestionOwn }
         />
