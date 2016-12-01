@@ -127,7 +127,7 @@ module.exports = {
     {
       "id": 17,
       "question": "font-weight: bold;",
-      "answer": "bold",
+      "answer": "b",
       "categories": ["Typography", "Font Weight"],
       "url": "http://tachyons.io/docs/typography/font-weight/"
     },
