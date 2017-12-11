@@ -46,7 +46,7 @@ var StyleQuestionBlock = React.createClass({
       <code className="db w-100 grey2 i">
         { "// " }
         { this.props.tachyonsStyle.categories[0] + ": " + this.props.tachyonsStyle.categories[1] + ". " }
-        <a className="grey2" href={this.props.tachyonsStyle.url}>See documentation</a>.
+        <a className="grey2" target="_blank" href={this.props.tachyonsStyle.url}>See documentation</a>.
       </code>
     );
     var selector = this.props.isEditable
@@ -66,7 +66,7 @@ var StyleQuestionBlock = React.createClass({
       ) : (
           <code className={ isCorrect ? "correct db w-100" : "wrong db w-100" }>
             <span className={ isCorrect ? "green" : "bg-red white" }>
-              .{ this.props.answer } 
+              .{ this.props.answer }
               <i className="material-icons ph1 v-btm">{ isCorrect ? "check_circle" : "error"}</i>
             </span>
             { " { " }
@@ -76,7 +76,7 @@ var StyleQuestionBlock = React.createClass({
           </code>
         );
     var property = (
-      <code 
+      <code
         className="db w-100 language-css"
         ref={ (code) => { this.propertyCode = code; } }>
           { this.props.tachyonsStyle.question }
