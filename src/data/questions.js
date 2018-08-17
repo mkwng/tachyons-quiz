@@ -102,7 +102,7 @@ module.exports = {
     },
     {
       "id": 14,
-      "question": "letter-spacing: -0.5em;",
+      "question": "letter-spacing: -.05em;",
       "answer": "tracked-tight",
       "categories": ["Typography", "Tracking"],
       "url": "http://tachyons.io/docs/typography/tracking/"
