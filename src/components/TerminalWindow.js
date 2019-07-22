@@ -116,7 +116,7 @@ var TerminalWindow = React.createClass({
   },
 
   reset: function() {
-    if( confirm("Reset all progress? This can't be undone.") ) {
+    if( window.confirm("Reset all progress? This can't be undone.") ) {
       localStorage.setItem('tachyonsQuiz', JSON.stringify({ score:0, log:[], questions:[] }));
       window.location.reload();
     }
